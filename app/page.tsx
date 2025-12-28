@@ -27,7 +27,7 @@ export default function DashboardPage() {
 				<h2 className="text-3xl font-bold tracking-tight hidden">Dashboard</h2>
 			</div>
 			<Tabs defaultValue="overview" className="space-y-4">
-				<div className="flex items-center justify-between">
+				<div className="sticky top-0 z-50 flex items-center justify-between bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 py-4 -mx-4 px-4">
 					<TabsList className="bg-background border">
 						<TabsTrigger value="overview">All</TabsTrigger>
 						<TabsTrigger value="shaq">Shaq</TabsTrigger>
