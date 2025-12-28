@@ -9,8 +9,8 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { MetricsCards } from '@/components/dashboard/metrics-cards'
-import { RevenueChart } from '@/components/dashboard/revenue-chart'
-import { TopProductsTable } from '@/components/dashboard/top-products-table'
+import { RevenueChart } from '@/components/dashboard/kills-per-game-chart'
+import { TopProductsTable } from '@/components/dashboard/kills-per-game-table'
 import { GameBarChart } from '@/components/dashboard/game-bar-chart'
 
 export default function DashboardPage() {
