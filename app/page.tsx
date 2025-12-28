@@ -1,17 +1,7 @@
 import { Download, Filter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card'
-import { MetricsCards } from '@/components/dashboard/metrics-cards'
-import { RevenueChart } from '@/components/dashboard/kills-per-game-chart'
-import { TopProductsTable } from '@/components/dashboard/kills-per-game-table'
-import { GameBarChart } from '@/components/dashboard/game-bar-chart'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { PlayerTabContent } from '@/components/dashboard/player-tab-content'
 
 export default function DashboardPage() {
 	return (
@@ -42,226 +32,28 @@ export default function DashboardPage() {
 					</div>
 				</div>
 
-				<TabsContent value="overview" className="space-y-4">
-					<MetricsCards />
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Combat History (Cumulative)</CardTitle>
-								<CardDescription>
-									Race To 100 Kills Across All Games.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<RevenueChart selectedPlayer="all" />
-							</CardContent>
-						</Card>
-
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Game Performance</CardTitle>
-								<CardDescription>
-									Individual Game Kill Distribution.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<GameBarChart selectedPlayer="all" />
-							</CardContent>
-						</Card>
-					</div>
-
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Top Weapons</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<TopProductsTable selectedPlayer="all" />
-							</CardContent>
-						</Card>
-					</div>
-				</TabsContent>
-
-				<TabsContent value="shaq" className="space-y-4">
-					<MetricsCards />
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Combat History</CardTitle>
-								<CardDescription>
-									Overview Of Combat Performance Over Time For Shaq.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<RevenueChart selectedPlayer="Shaq" />
-							</CardContent>
-						</Card>
-
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Game Performance</CardTitle>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<GameBarChart selectedPlayer="Shaq" />
-							</CardContent>
-						</Card>
-					</div>
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Top Weapons</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<TopProductsTable selectedPlayer="Shaq" />
-							</CardContent>
-						</Card>
-					</div>
-				</TabsContent>
-
-				<TabsContent value="josh" className="space-y-4">
-					<MetricsCards />
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Combat History</CardTitle>
-								<CardDescription>
-									Overview Of Combat Performance Over Time For Josh.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<RevenueChart selectedPlayer="Josh" />
-							</CardContent>
-						</Card>
-
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Game Performance</CardTitle>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<GameBarChart selectedPlayer="Josh" />
-							</CardContent>
-						</Card>
-					</div>
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Top Weapons</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<TopProductsTable selectedPlayer="Josh" />
-							</CardContent>
-						</Card>
-					</div>
-				</TabsContent>
-
-				<TabsContent value="doug" className="space-y-4">
-					<MetricsCards />
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Combat History</CardTitle>
-								<CardDescription>
-									Overview Of Combat Performance Over Time For Doug.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<RevenueChart selectedPlayer="Doug" />
-							</CardContent>
-						</Card>
-
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Game Performance</CardTitle>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<GameBarChart selectedPlayer="Doug" />
-							</CardContent>
-						</Card>
-					</div>
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Top Weapons</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<TopProductsTable selectedPlayer="Doug" />
-							</CardContent>
-						</Card>
-					</div>
-				</TabsContent>
-
-				<TabsContent value="mike" className="space-y-4">
-					<MetricsCards />
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Combat History</CardTitle>
-								<CardDescription>
-									Overview Of Combat Performance Over Time For Mike.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<RevenueChart selectedPlayer="Mike" />
-							</CardContent>
-						</Card>
-
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Game Performance</CardTitle>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<GameBarChart selectedPlayer="Mike" />
-							</CardContent>
-						</Card>
-					</div>
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Top Weapons</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<TopProductsTable selectedPlayer="Mike" />
-							</CardContent>
-						</Card>
-					</div>
-				</TabsContent>
-
-				<TabsContent value="mir" className="space-y-4">
-					<MetricsCards />
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Combat History</CardTitle>
-								<CardDescription>
-									Overview Of Combat Performance Over Time For Mir.
-								</CardDescription>
-							</CardHeader>
-							<CardContent className="pl-2">
-								{/* Mir not in dummyData */}
-								<RevenueChart />
-							</CardContent>
-						</Card>
-
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Game Performance</CardTitle>
-							</CardHeader>
-							<CardContent className="pl-2">
-								<GameBarChart />
-							</CardContent>
-						</Card>
-					</div>
-					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-						<Card className="col-span-4 lg:col-span-7">
-							<CardHeader>
-								<CardTitle>Top Weapons</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<TopProductsTable />
-							</CardContent>
-						</Card>
-					</div>
-				</TabsContent>
+				<PlayerTabContent value="overview" selectedPlayer="all" isOverview />
+				<PlayerTabContent
+					value="shaq"
+					selectedPlayer="Shaq"
+					playerName="Shaq"
+				/>
+				<PlayerTabContent
+					value="josh"
+					selectedPlayer="Josh"
+					playerName="Josh"
+				/>
+				<PlayerTabContent
+					value="doug"
+					selectedPlayer="Doug"
+					playerName="Doug"
+				/>
+				<PlayerTabContent
+					value="mike"
+					selectedPlayer="Mike"
+					playerName="Mike"
+				/>
+				<PlayerTabContent value="mir" selectedPlayer="all" playerName="Mir" />
 			</Tabs>
 		</div>
 	)
