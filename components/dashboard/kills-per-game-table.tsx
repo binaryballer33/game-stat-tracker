@@ -23,6 +23,7 @@ import { Input } from '@/components/ui/input'
 import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { PlayerName } from '@/types/dashboard'
 
 interface GameStat {
 	game: number
@@ -114,7 +115,7 @@ const columns: ColumnDef<GameStat>[] = [
 ]
 
 interface KillsPerGameTableProps {
-	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
+	selectedPlayer?: PlayerName
 }
 
 export function KillsPerGameTable({

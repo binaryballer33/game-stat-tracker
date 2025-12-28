@@ -1,9 +1,9 @@
-export type PlayerName = 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'Mir'
+export type PlayerName = 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'Mir' | 'all'
 
-export type RevenueChartProps = {
-	selectedPlayer?: PlayerName | 'all'
+export type StatChartProps = {
+	selectedPlayer?: PlayerName
 }
 
-export type KillsPerGameBarChartProps = {
-	selectedPlayer?: PlayerName | 'all'
+export type StatsPerGameBarChartProps = StatChartProps & {
+	cumulative?: boolean
 }

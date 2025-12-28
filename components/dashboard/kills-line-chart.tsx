@@ -11,7 +11,7 @@ import {
 	Legend,
 } from 'recharts'
 import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
-import { RevenueChartProps } from '@/types/dashboard'
+import { StatChartProps } from '@/types/dashboard'
 import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
 const CustomDot = (props: {
@@ -42,7 +42,7 @@ const CustomDot = (props: {
 	)
 }
 
-interface KillsLineChartProps extends RevenueChartProps {
+type KillsLineChartProps = StatChartProps & {
 	cumulative?: boolean
 }
 

@@ -12,10 +12,10 @@ import {
 	LabelList,
 } from 'recharts'
 import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
-import { KillsPerGameBarChartProps } from '@/types/dashboard'
+import { StatsPerGameBarChartProps } from '@/types/dashboard'
 import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
-type KillsBarChartProps = KillsPerGameBarChartProps & {
+type KillsBarChartProps = StatsPerGameBarChartProps & {
 	cumulative?: boolean
 }
 
