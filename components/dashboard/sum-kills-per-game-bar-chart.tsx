@@ -9,14 +9,17 @@ import {
 	YAxis,
 	CartesianGrid,
 	Legend,
+	LabelList,
 } from 'recharts'
 import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 
-interface GameBarChartProps {
-	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
-}
+import { KillsPerGameBarChartProps } from '@/types/dashboard'
+import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
-export function GameBarChart({ selectedPlayer = 'all' }: GameBarChartProps) {
+export function SumKillsPerGameBarChart({
+	selectedPlayer = 'all',
+}: KillsPerGameBarChartProps) {
+	const processedData = getCumulativeKills()
 	const showAll = selectedPlayer === 'all'
 
 	return (
@@ -24,18 +27,22 @@ export function GameBarChart({ selectedPlayer = 'all' }: GameBarChartProps) {
 			<div className="flex items-center gap-4 mb-6">
 				<div>
 					<div className="flex items-center gap-2">
-						<h3 className="text-xl font-bold tracking-tight">Game Stats</h3>
+						<h3 className="text-xl font-bold tracking-tight">
+							{showAll ? 'Game Stats' : `${selectedPlayer}'s Game Stats`}
+						</h3>
 					</div>
 					<p className="text-sm text-muted-foreground">
-						Grouped Kills Per Player From {dummyData.date}.
+						{showAll
+							? `Tracking Cumulative Kills Per Player From ${dummyData.date}.`
+							: `Tracking Cumulative Kills For ${selectedPlayer} From ${dummyData.date}.`}
 					</p>
 				</div>
 			</div>
 
 			<ResponsiveContainer width="100%" height={350}>
 				<BarChart
-					data={dummyData.games}
-					margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+					data={processedData}
+					margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
 				>
 					<CartesianGrid
 						strokeDasharray="3 3"
@@ -75,7 +82,14 @@ export function GameBarChart({ selectedPlayer = 'all' }: GameBarChartProps) {
 							fill="var(--chart-1)"
 							radius={[4, 4, 0, 0]}
 							name="Shaq"
-						/>
+						>
+							<LabelList
+								dataKey="Shaq"
+								position="top"
+								fill="#888888"
+								fontSize={10}
+							/>
+						</Bar>
 					)}
 					{(showAll || selectedPlayer === 'Josh') && (
 						<Bar
@@ -83,7 +97,14 @@ export function GameBarChart({ selectedPlayer = 'all' }: GameBarChartProps) {
 							fill="var(--chart-2)"
 							radius={[4, 4, 0, 0]}
 							name="Josh"
-						/>
+						>
+							<LabelList
+								dataKey="Josh"
+								position="top"
+								fill="#888888"
+								fontSize={10}
+							/>
+						</Bar>
 					)}
 					{(showAll || selectedPlayer === 'Mike') && (
 						<Bar
@@ -91,7 +112,14 @@ export function GameBarChart({ selectedPlayer = 'all' }: GameBarChartProps) {
 							fill="var(--chart-3)"
 							radius={[4, 4, 0, 0]}
 							name="Mike"
-						/>
+						>
+							<LabelList
+								dataKey="Mike"
+								position="top"
+								fill="#888888"
+								fontSize={10}
+							/>
+						</Bar>
 					)}
 					{(showAll || selectedPlayer === 'Doug') && (
 						<Bar
@@ -99,7 +127,14 @@ export function GameBarChart({ selectedPlayer = 'all' }: GameBarChartProps) {
 							fill="var(--destructive)"
 							radius={[4, 4, 0, 0]}
 							name="Doug"
-						/>
+						>
+							<LabelList
+								dataKey="Doug"
+								position="top"
+								fill="#888888"
+								fontSize={10}
+							/>
+						</Bar>
 					)}
 				</BarChart>
 			</ResponsiveContainer>

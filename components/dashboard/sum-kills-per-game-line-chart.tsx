@@ -35,26 +35,13 @@ const CustomDot = (props: any) => {
 	)
 }
 
-interface RevenueChartProps {
-	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
-}
+import { RevenueChartProps } from '@/types/dashboard'
+import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
-export function RevenueChart({ selectedPlayer = 'all' }: RevenueChartProps) {
-	const cumulative = { Doug: 0, Josh: 0, Mike: 0, Shaq: 0 }
-	const processedData = dummyData.games.map((game) => {
-		cumulative.Doug += game.Doug
-		cumulative.Josh += game.Josh
-		cumulative.Mike += game.Mike
-		cumulative.Shaq += game.Shaq
-		return {
-			game: game.game.toString(),
-			Doug: cumulative.Doug,
-			Josh: cumulative.Josh,
-			Mike: cumulative.Mike,
-			Shaq: cumulative.Shaq,
-		}
-	})
-
+export function SumKillsPerGameLineChart({
+	selectedPlayer = 'all',
+}: RevenueChartProps) {
+	const processedData = getCumulativeKills()
 	const showAll = selectedPlayer === 'all'
 
 	return (
@@ -70,8 +57,8 @@ export function RevenueChart({ selectedPlayer = 'all' }: RevenueChartProps) {
 					</div>
 					<p className="text-sm text-muted-foreground">
 						{showAll
-							? `Tracking total kills per player from ${dummyData.date}.`
-							: `Tracking cumulative kills for ${selectedPlayer} from ${dummyData.date}.`}
+							? `Tracking Cumulative Kills Per Player From ${dummyData.date}.`
+							: `Tracking Cumulative Kills For ${selectedPlayer} From ${dummyData.date}.`}
 					</p>
 				</div>
 			</div>

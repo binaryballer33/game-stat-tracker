@@ -113,13 +113,13 @@ const columns: ColumnDef<GameStat>[] = [
 	},
 ]
 
-interface TopProductsTableProps {
+interface KillsPerGameTableProps {
 	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
 }
 
-export function TopProductsTable({
+export function KillsPerGameTable({
 	selectedPlayer = 'all',
-}: TopProductsTableProps) {
+}: KillsPerGameTableProps) {
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [globalFilter, setGlobalFilter] = React.useState('')
 
