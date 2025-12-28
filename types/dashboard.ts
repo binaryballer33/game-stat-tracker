@@ -6,6 +6,9 @@ export interface GameData {
 	Josh: number
 	Mike: number
 	Shaq: number
+	deaths?: Record<PlayerName, number>
+	assists?: Record<PlayerName, number>
+	redeploys?: Record<PlayerName, number>
 }
 
 export interface StatSnapshot {
