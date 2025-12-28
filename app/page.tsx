@@ -5,15 +5,33 @@ import { Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PlayerTabContent } from '@/components/dashboard/player-tab-content'
-import { getStatsForDate } from '@/lib/data-fetching/date-selector'
+import { getStatsFromFirestore } from '@/lib/data-fetching/firestore-stats'
 import { DatePicker } from '@/components/dashboard/date-picker'
 import { ModeToggle } from '@/components/mode-toggle'
+import { StatSnapshot } from '@/types/dashboard'
+import { Loader2 } from 'lucide-react'
 
 export default function DashboardPage() {
 	const [date, setDate] = React.useState<Date | undefined>(
 		new Date(2025, 11, 27),
 	)
-	const stats = getStatsForDate(date)
+	const [stats, setStats] = React.useState<StatSnapshot | null>(null)
+	const [loading, setLoading] = React.useState(true)
+
+	React.useEffect(() => {
+		async function fetchData() {
+			setLoading(true)
+			try {
+				const data = await getStatsFromFirestore(date)
+				setStats(data)
+			} catch (error) {
+				console.error('Failed to fetch stats:', error)
+			} finally {
+				setLoading(false)
+			}
+		}
+		fetchData()
+	}, [date])
 
 	return (
 		<div className="flex-1 space-y-4 p-8 pt-6 min-h-screen bg-background">
@@ -42,7 +60,12 @@ export default function DashboardPage() {
 					</div>
 				</div>
 
-				{stats ? (
+				{loading ? (
+					<div className="flex flex-col items-center justify-center p-20 border-2 border-dashed rounded-lg">
+						<Loader2 className="h-8 w-8 animate-spin text-muted-foreground mb-4" />
+						<p className="text-muted-foreground">Loading stats...</p>
+					</div>
+				) : stats ? (
 					<>
 						<PlayerTabContent
 							value="overview"
