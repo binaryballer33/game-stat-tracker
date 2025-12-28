@@ -9,7 +9,6 @@ import {
 	getSortedRowModel,
 	SortingState,
 	getFilteredRowModel,
-	ColumnFiltersState,
 } from '@tanstack/react-table'
 import {
 	Table,
@@ -114,13 +113,29 @@ const columns: ColumnDef<GameStat>[] = [
 	},
 ]
 
-export function TopProductsTable() {
+interface TopProductsTableProps {
+	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
+}
+
+export function TopProductsTable({
+	selectedPlayer = 'all',
+}: TopProductsTableProps) {
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [globalFilter, setGlobalFilter] = React.useState('')
 
+	// Memoize columns to filter based on selectedPlayer
+	const filteredColumns = React.useMemo(() => {
+		if (selectedPlayer === 'all') return columns
+		return columns.filter(
+			(col) =>
+				(col as any).accessorKey === 'game' ||
+				(col as any).accessorKey === selectedPlayer,
+		)
+	}, [selectedPlayer])
+
 	const table = useReactTable({
 		data: dummyData.games,
-		columns,
+		columns: filteredColumns,
 		getCoreRowModel: getCoreRowModel(),
 		onSortingChange: setSorting,
 		getSortedRowModel: getSortedRowModel(),
@@ -195,7 +210,7 @@ export function TopProductsTable() {
 						) : (
 							<TableRow>
 								<TableCell
-									colSpan={columns.length}
+									colSpan={filteredColumns.length}
 									className="h-24 text-center"
 								>
 									No results.
@@ -206,10 +221,18 @@ export function TopProductsTable() {
 					<TableFooter>
 						<TableRow>
 							<TableCell className="font-bold">Grand Total</TableCell>
-							<TableCell className="font-bold">{totals.Doug}</TableCell>
-							<TableCell className="font-bold">{totals.Josh}</TableCell>
-							<TableCell className="font-bold">{totals.Mike}</TableCell>
-							<TableCell className="font-bold">{totals.Shaq}</TableCell>
+							{(selectedPlayer === 'all' || selectedPlayer === 'Doug') && (
+								<TableCell className="font-bold">{totals.Doug}</TableCell>
+							)}
+							{(selectedPlayer === 'all' || selectedPlayer === 'Josh') && (
+								<TableCell className="font-bold">{totals.Josh}</TableCell>
+							)}
+							{(selectedPlayer === 'all' || selectedPlayer === 'Mike') && (
+								<TableCell className="font-bold">{totals.Mike}</TableCell>
+							)}
+							{(selectedPlayer === 'all' || selectedPlayer === 'Shaq') && (
+								<TableCell className="font-bold">{totals.Shaq}</TableCell>
+							)}
 						</TableRow>
 					</TableFooter>
 				</Table>

@@ -35,14 +35,17 @@ const CustomDot = (props: any) => {
 	)
 }
 
-export function RevenueChart() {
+interface RevenueChartProps {
+	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
+}
+
+export function RevenueChart({ selectedPlayer = 'all' }: RevenueChartProps) {
 	const cumulative = { Doug: 0, Josh: 0, Mike: 0, Shaq: 0 }
 	const processedData = dummyData.games.map((game) => {
 		cumulative.Doug += game.Doug
 		cumulative.Josh += game.Josh
 		cumulative.Mike += game.Mike
 		cumulative.Shaq += game.Shaq
-
 		return {
 			game: game.game.toString(),
 			Doug: cumulative.Doug,
@@ -52,15 +55,23 @@ export function RevenueChart() {
 		}
 	})
 
+	const showAll = selectedPlayer === 'all'
+
 	return (
 		<div className="w-full h-full min-h-[350px]">
 			<div className="flex items-center gap-4 mb-6">
 				<div>
 					<div className="flex items-center gap-2">
-						<h3 className="text-xl font-bold tracking-tight">Kills</h3>
+						<h3 className="text-xl font-bold tracking-tight">
+							{showAll
+								? 'Combat History'
+								: `${selectedPlayer}'s Combat History`}
+						</h3>
 					</div>
 					<p className="text-sm text-muted-foreground">
-						Tracking Of Total Kills Per Player From {dummyData.date}.
+						{showAll
+							? `Tracking total kills per player from ${dummyData.date}.`
+							: `Tracking cumulative kills for ${selectedPlayer} from ${dummyData.date}.`}
 					</p>
 				</div>
 			</div>
@@ -102,38 +113,46 @@ export function RevenueChart() {
 					/>
 					<Legend verticalAlign="top" height={36} />
 
-					<Line
-						type="monotone"
-						dataKey="Shaq"
-						stroke="var(--chart-1)" // Blue
-						strokeWidth={3}
-						dot={<CustomDot />}
-						activeDot={{ r: 8 }}
-					/>
-					<Line
-						type="monotone"
-						dataKey="Josh"
-						stroke="var(--chart-2)" // Teal
-						strokeWidth={3}
-						dot={<CustomDot />}
-						activeDot={{ r: 8 }}
-					/>
-					<Line
-						type="monotone"
-						dataKey="Mike"
-						stroke="var(--chart-3)" // Purple
-						strokeWidth={3}
-						dot={<CustomDot />}
-						activeDot={{ r: 8 }}
-					/>
-					<Line
-						type="monotone"
-						dataKey="Doug"
-						stroke="var(--destructive)" // Red
-						strokeWidth={3}
-						dot={<CustomDot />}
-						activeDot={{ r: 8 }}
-					/>
+					{(showAll || selectedPlayer === 'Shaq') && (
+						<Line
+							type="monotone"
+							dataKey="Shaq"
+							stroke="var(--chart-1)" // Blue
+							strokeWidth={3}
+							dot={<CustomDot />}
+							activeDot={{ r: 8 }}
+						/>
+					)}
+					{(showAll || selectedPlayer === 'Josh') && (
+						<Line
+							type="monotone"
+							dataKey="Josh"
+							stroke="var(--chart-2)" // Teal
+							strokeWidth={3}
+							dot={<CustomDot />}
+							activeDot={{ r: 8 }}
+						/>
+					)}
+					{(showAll || selectedPlayer === 'Mike') && (
+						<Line
+							type="monotone"
+							dataKey="Mike"
+							stroke="var(--chart-3)" // Purple
+							strokeWidth={3}
+							dot={<CustomDot />}
+							activeDot={{ r: 8 }}
+						/>
+					)}
+					{(showAll || selectedPlayer === 'Doug') && (
+						<Line
+							type="monotone"
+							dataKey="Doug"
+							stroke="var(--destructive)" // Red
+							strokeWidth={3}
+							dot={<CustomDot />}
+							activeDot={{ r: 8 }}
+						/>
+					)}
 				</LineChart>
 			</ResponsiveContainer>
 		</div>

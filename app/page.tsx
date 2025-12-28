@@ -24,7 +24,7 @@ export default function DashboardPage() {
 						<TabsTrigger value="overview">All</TabsTrigger>
 						<TabsTrigger value="shaq">Shaq</TabsTrigger>
 						<TabsTrigger value="josh">Josh</TabsTrigger>
-						<TabsTrigger value="randy">Randy</TabsTrigger>
+						<TabsTrigger value="doug">Doug</TabsTrigger>
 						<TabsTrigger value="mike">Mike</TabsTrigger>
 						<TabsTrigger value="mir">Mir</TabsTrigger>
 					</TabsList>
@@ -52,7 +52,7 @@ export default function DashboardPage() {
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
-								<RevenueChart />
+								<RevenueChart selectedPlayer="all" />
 							</CardContent>
 						</Card>
 					</div>
@@ -63,7 +63,7 @@ export default function DashboardPage() {
 								<CardTitle>Top Weapons</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<TopProductsTable />
+								<TopProductsTable selectedPlayer="all" />
 							</CardContent>
 						</Card>
 					</div>
@@ -74,13 +74,13 @@ export default function DashboardPage() {
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Revenue</CardTitle>
+								<CardTitle>Combat History</CardTitle>
 								<CardDescription>
-									Overview Of Revenue Over Time For Shaq.
+									Overview Of Combat Performance Over Time For Shaq.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
-								<RevenueChart />
+								<RevenueChart selectedPlayer="Shaq" />
 							</CardContent>
 						</Card>
 					</div>
@@ -90,7 +90,7 @@ export default function DashboardPage() {
 								<CardTitle>Top Weapons</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<TopProductsTable />
+								<TopProductsTable selectedPlayer="Shaq" />
 							</CardContent>
 						</Card>
 					</div>
@@ -101,13 +101,13 @@ export default function DashboardPage() {
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Revenue</CardTitle>
+								<CardTitle>Combat History</CardTitle>
 								<CardDescription>
-									Overview Of Revenue Over Time For Josh.
+									Overview Of Combat Performance Over Time For Josh.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
-								<RevenueChart />
+								<RevenueChart selectedPlayer="Josh" />
 							</CardContent>
 						</Card>
 					</div>
@@ -117,24 +117,24 @@ export default function DashboardPage() {
 								<CardTitle>Top Weapons</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<TopProductsTable />
+								<TopProductsTable selectedPlayer="Josh" />
 							</CardContent>
 						</Card>
 					</div>
 				</TabsContent>
 
-				<TabsContent value="randy" className="space-y-4">
+				<TabsContent value="doug" className="space-y-4">
 					<MetricsCards />
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Revenue</CardTitle>
+								<CardTitle>Combat History</CardTitle>
 								<CardDescription>
-									Overview Of Revenue Over Time For Randy.
+									Overview Of Combat Performance Over Time For Doug.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
-								<RevenueChart />
+								<RevenueChart selectedPlayer="Doug" />
 							</CardContent>
 						</Card>
 					</div>
@@ -144,7 +144,7 @@ export default function DashboardPage() {
 								<CardTitle>Top Weapons</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<TopProductsTable />
+								<TopProductsTable selectedPlayer="Doug" />
 							</CardContent>
 						</Card>
 					</div>
@@ -155,23 +155,23 @@ export default function DashboardPage() {
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Revenue</CardTitle>
+								<CardTitle>Combat History</CardTitle>
 								<CardDescription>
-									Overview Of Revenue Over Time For Mike.
+									Overview Of Combat Performance Over Time For Mike.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
-								<RevenueChart />
+								<RevenueChart selectedPlayer="Mike" />
 							</CardContent>
 						</Card>
 					</div>
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Top Product</CardTitle>
+								<CardTitle>Top Weapons</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<TopProductsTable />
+								<TopProductsTable selectedPlayer="Mike" />
 							</CardContent>
 						</Card>
 					</div>
@@ -182,12 +182,13 @@ export default function DashboardPage() {
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Revenue</CardTitle>
+								<CardTitle>Combat History</CardTitle>
 								<CardDescription>
-									Overview Of Revenue Over Time For Mir.
+									Overview Of Combat Performance Over Time For Mir.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
+								{/* Mir not in dummyData */}
 								<RevenueChart />
 							</CardContent>
 						</Card>
@@ -195,7 +196,7 @@ export default function DashboardPage() {
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Top Product</CardTitle>
+								<CardTitle>Top Weapons</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<TopProductsTable />
