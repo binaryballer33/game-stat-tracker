@@ -11,6 +11,7 @@ import {
 import { MetricsCards } from '@/components/dashboard/metrics-cards'
 import { RevenueChart } from '@/components/dashboard/revenue-chart'
 import { TopProductsTable } from '@/components/dashboard/top-products-table'
+import { GameBarChart } from '@/components/dashboard/game-bar-chart'
 
 export default function DashboardPage() {
 	return (
@@ -46,13 +47,25 @@ export default function DashboardPage() {
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
 							<CardHeader>
-								<CardTitle>Combat History</CardTitle>
+								<CardTitle>Combat History (Cumulative)</CardTitle>
 								<CardDescription>
-									Overview Of Combat Performance Over Time.
+									Race To 100 Kills Across All Games.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
 								<RevenueChart selectedPlayer="all" />
+							</CardContent>
+						</Card>
+
+						<Card className="col-span-4 lg:col-span-7">
+							<CardHeader>
+								<CardTitle>Game Performance</CardTitle>
+								<CardDescription>
+									Individual Game Kill Distribution.
+								</CardDescription>
+							</CardHeader>
+							<CardContent className="pl-2">
+								<GameBarChart selectedPlayer="all" />
 							</CardContent>
 						</Card>
 					</div>
@@ -83,6 +96,15 @@ export default function DashboardPage() {
 								<RevenueChart selectedPlayer="Shaq" />
 							</CardContent>
 						</Card>
+
+						<Card className="col-span-4 lg:col-span-7">
+							<CardHeader>
+								<CardTitle>Game Performance</CardTitle>
+							</CardHeader>
+							<CardContent className="pl-2">
+								<GameBarChart selectedPlayer="Shaq" />
+							</CardContent>
+						</Card>
 					</div>
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
@@ -108,6 +130,15 @@ export default function DashboardPage() {
 							</CardHeader>
 							<CardContent className="pl-2">
 								<RevenueChart selectedPlayer="Josh" />
+							</CardContent>
+						</Card>
+
+						<Card className="col-span-4 lg:col-span-7">
+							<CardHeader>
+								<CardTitle>Game Performance</CardTitle>
+							</CardHeader>
+							<CardContent className="pl-2">
+								<GameBarChart selectedPlayer="Josh" />
 							</CardContent>
 						</Card>
 					</div>
@@ -137,6 +168,15 @@ export default function DashboardPage() {
 								<RevenueChart selectedPlayer="Doug" />
 							</CardContent>
 						</Card>
+
+						<Card className="col-span-4 lg:col-span-7">
+							<CardHeader>
+								<CardTitle>Game Performance</CardTitle>
+							</CardHeader>
+							<CardContent className="pl-2">
+								<GameBarChart selectedPlayer="Doug" />
+							</CardContent>
+						</Card>
 					</div>
 					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 						<Card className="col-span-4 lg:col-span-7">
@@ -162,6 +202,15 @@ export default function DashboardPage() {
 							</CardHeader>
 							<CardContent className="pl-2">
 								<RevenueChart selectedPlayer="Mike" />
+							</CardContent>
+						</Card>
+
+						<Card className="col-span-4 lg:col-span-7">
+							<CardHeader>
+								<CardTitle>Game Performance</CardTitle>
+							</CardHeader>
+							<CardContent className="pl-2">
+								<GameBarChart selectedPlayer="Mike" />
 							</CardContent>
 						</Card>
 					</div>
@@ -190,6 +239,15 @@ export default function DashboardPage() {
 							<CardContent className="pl-2">
 								{/* Mir not in dummyData */}
 								<RevenueChart />
+							</CardContent>
+						</Card>
+
+						<Card className="col-span-4 lg:col-span-7">
+							<CardHeader>
+								<CardTitle>Game Performance</CardTitle>
+							</CardHeader>
+							<CardContent className="pl-2">
+								<GameBarChart />
 							</CardContent>
 						</Card>
 					</div>
