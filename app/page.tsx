@@ -1,19 +1,12 @@
 'use client'
 
 import * as React from 'react'
-import { Download, CalendarIcon } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PlayerTabContent } from '@/components/dashboard/player-tab-content'
-import { Calendar } from '@/components/ui/calendar'
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
-import { format } from 'date-fns'
 import { getStatsForDate } from '@/lib/data-fetching/date-selector'
+import { DatePicker } from '@/components/dashboard/date-picker'
 
 export default function DashboardPage() {
 	const [date, setDate] = React.useState<Date | undefined>(
@@ -38,28 +31,8 @@ export default function DashboardPage() {
 					</TabsList>
 
 					<div className="flex items-center space-x-2">
-						<Popover>
-							<PopoverTrigger asChild>
-								<Button
-									variant="outline"
-									className={cn(
-										'h-9 w-[240px] justify-start text-left font-normal',
-										!date && 'text-muted-foreground',
-									)}
-								>
-									<CalendarIcon className="mr-2 h-4 w-4" />
-									{date ? format(date, 'PPP') : <span>Pick a date</span>}
-								</Button>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="end">
-								<Calendar
-									mode="single"
-									selected={date}
-									onSelect={setDate}
-									initialFocus
-								/>
-							</PopoverContent>
-						</Popover>
+						<DatePicker date={date} onSelect={setDate} />
+
 						<Button className="h-9 bg-primary text-primary-foreground">
 							<Download className="mr-2 h-4 w-4" />
 							Export
