@@ -50,9 +50,7 @@ export function SumKillsPerGameLineChart({
 				<div>
 					<div className="flex items-center gap-2">
 						<h3 className="text-xl font-bold tracking-tight">
-							{showAll
-								? 'Combat History'
-								: `${selectedPlayer}'s Combat History`}
+							{showAll ? 'Game Stats' : `${selectedPlayer}'s Game Stats`}
 						</h3>
 					</div>
 					<p className="text-sm text-muted-foreground">

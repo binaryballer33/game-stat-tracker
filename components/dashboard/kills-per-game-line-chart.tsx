@@ -1,25 +1,24 @@
 'use client'
 
 import {
-	Bar,
-	BarChart,
+	Line,
+	LineChart,
 	ResponsiveContainer,
 	XAxis,
 	Tooltip,
 	YAxis,
 	CartesianGrid,
 	Legend,
-	LabelList,
 } from 'recharts'
 import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 
-interface KillsPerGameBarChartProps {
+interface KillsPerGameLineChartProps {
 	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
 }
 
-export function KillsPerGameBarChart({
+export function KillsPerGameLineChart({
 	selectedPlayer = 'all',
-}: KillsPerGameBarChartProps) {
+}: KillsPerGameLineChartProps) {
 	const showAll = selectedPlayer === 'all'
 
 	return (
@@ -36,11 +35,10 @@ export function KillsPerGameBarChart({
 			</div>
 
 			<ResponsiveContainer width="100%" height={350}>
-				<BarChart
+				<LineChart
 					data={dummyData.games}
 					margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
 				>
-					Tracking Kills Per Player From {dummyData.date}.
 					<CartesianGrid
 						strokeDasharray="3 3"
 						vertical={false}
@@ -73,70 +71,50 @@ export function KillsPerGameBarChart({
 					/>
 					<Legend verticalAlign="top" height={36} />
 					{(showAll || selectedPlayer === 'Shaq') && (
-						<Bar
+						<Line
+							type="monotone"
 							dataKey="Shaq"
-							fill="var(--chart-1)"
-							radius={[4, 4, 0, 0]}
+							stroke="var(--chart-1)"
+							strokeWidth={2}
+							dot={{ r: 4, fill: 'var(--chart-1)' }}
+							activeDot={{ r: 6 }}
 							name="Shaq"
-						>
-							<LabelList
-								dataKey="Shaq"
-								position="top"
-								fontSize={10}
-								fill="#888888"
-								offset={4}
-							/>
-						</Bar>
+						/>
 					)}
 					{(showAll || selectedPlayer === 'Josh') && (
-						<Bar
+						<Line
+							type="monotone"
 							dataKey="Josh"
-							fill="var(--chart-2)"
-							radius={[4, 4, 0, 0]}
+							stroke="var(--chart-2)"
+							strokeWidth={2}
+							dot={{ r: 4, fill: 'var(--chart-2)' }}
+							activeDot={{ r: 6 }}
 							name="Josh"
-						>
-							<LabelList
-								dataKey="Josh"
-								position="top"
-								fontSize={10}
-								fill="#888888"
-								offset={4}
-							/>
-						</Bar>
+						/>
 					)}
 					{(showAll || selectedPlayer === 'Mike') && (
-						<Bar
+						<Line
+							type="monotone"
 							dataKey="Mike"
-							fill="var(--chart-3)"
-							radius={[4, 4, 0, 0]}
+							stroke="var(--chart-3)"
+							strokeWidth={2}
+							dot={{ r: 4, fill: 'var(--chart-3)' }}
+							activeDot={{ r: 6 }}
 							name="Mike"
-						>
-							<LabelList
-								dataKey="Mike"
-								position="top"
-								fontSize={10}
-								fill="#888888"
-								offset={4}
-							/>
-						</Bar>
+						/>
 					)}
 					{(showAll || selectedPlayer === 'Doug') && (
-						<Bar
+						<Line
+							type="monotone"
 							dataKey="Doug"
-							fill="var(--destructive)"
-							radius={[4, 4, 0, 0]}
+							stroke="var(--destructive)"
+							strokeWidth={2}
+							dot={{ r: 4, fill: 'var(--destructive)' }}
+							activeDot={{ r: 6 }}
 							name="Doug"
-						>
-							<LabelList
-								dataKey="Doug"
-								position="top"
-								fontSize={10}
-								fill="#888888"
-								offset={4}
-							/>
-						</Bar>
+						/>
 					)}
-				</BarChart>
+				</LineChart>
 			</ResponsiveContainer>
 		</div>
 	)

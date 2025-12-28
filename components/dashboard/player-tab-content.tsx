@@ -14,6 +14,7 @@ import { KillsPerGameTable } from '@/components/dashboard/kills-per-game-table'
 import { SumKillsPerGameBarChart } from '@/components/dashboard/sum-kills-per-game-bar-chart'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { KillsPerGameBarChart } from '@/components/dashboard/kills-per-game-bar-chart'
+import { KillsPerGameLineChart } from '@/components/dashboard/kills-per-game-line-chart'
 
 interface PlayerTabContentProps {
 	value: string
@@ -62,12 +63,28 @@ export function PlayerTabContent({
 
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 				<Card className="col-span-4 lg:col-span-7">
-					<CardHeader>
-						<CardTitle>Kills Bar Chart</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<KillsPerGameBarChart selectedPlayer={selectedPlayer} />
-					</CardContent>
+					<Tabs defaultValue="bar" className="w-full">
+						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+							<div className="space-y-1">
+								<CardTitle>Game Performance</CardTitle>
+								<CardDescription>
+									Detailed game-by-game statistics.
+								</CardDescription>
+							</div>
+							<TabsList>
+								<TabsTrigger value="bar">Bar Chart</TabsTrigger>
+								<TabsTrigger value="line">Line Chart</TabsTrigger>
+							</TabsList>
+						</CardHeader>
+						<CardContent className="pl-2">
+							<TabsContent value="bar" className="m-0 border-none p-0">
+								<KillsPerGameBarChart selectedPlayer={selectedPlayer} />
+							</TabsContent>
+							<TabsContent value="line" className="m-0 border-none p-0">
+								<KillsPerGameLineChart selectedPlayer={selectedPlayer} />
+							</TabsContent>
+						</CardContent>
+					</Tabs>
 				</Card>
 			</div>
 
