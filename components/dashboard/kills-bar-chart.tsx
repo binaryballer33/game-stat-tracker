@@ -15,7 +15,7 @@ import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 import { KillsPerGameBarChartProps } from '@/types/dashboard'
 import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
-interface KillsBarChartProps extends KillsPerGameBarChartProps {
+type KillsBarChartProps = KillsPerGameBarChartProps & {
 	cumulative?: boolean
 }
 

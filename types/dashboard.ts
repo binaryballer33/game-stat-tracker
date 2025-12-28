@@ -1,9 +1,9 @@
-export type PlayerName = 'Doug' | 'Josh' | 'Mike' | 'Shaq'
+export type PlayerName = 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'Mir'
 
-export interface RevenueChartProps {
+export type RevenueChartProps = {
 	selectedPlayer?: PlayerName | 'all'
 }
 
-export interface KillsPerGameBarChartProps {
+export type KillsPerGameBarChartProps = {
 	selectedPlayer?: PlayerName | 'all'
 }

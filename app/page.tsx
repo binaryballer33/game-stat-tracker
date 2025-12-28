@@ -53,7 +53,7 @@ export default function DashboardPage() {
 					selectedPlayer="Mike"
 					playerName="Mike"
 				/>
-				<PlayerTabContent value="mir" selectedPlayer="all" playerName="Mir" />
+				<PlayerTabContent value="mir" selectedPlayer="Mir" playerName="Mir" />
 			</Tabs>
 		</div>
 	)

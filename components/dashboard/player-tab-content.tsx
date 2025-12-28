@@ -16,7 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface PlayerTabContentProps {
 	value: string
-	selectedPlayer: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
+	selectedPlayer: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all' | 'Mir'
 	playerName?: string
 	isOverview?: boolean
 }

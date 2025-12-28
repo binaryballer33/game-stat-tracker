@@ -1,5 +1,5 @@
 export const dummyData = {
-	date: '27-Dec',
+	date: '12-27-2025',
 	games: [
 		{
 			game: 1,
