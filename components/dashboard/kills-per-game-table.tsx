@@ -20,20 +20,11 @@ import {
 	TableFooter,
 } from '@/components/ui/table'
 import { Input } from '@/components/ui/input'
-import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 import { ArrowUpDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { PlayerName } from '@/types/dashboard'
+import { PlayerName, GameData } from '@/types/dashboard'
 
-interface GameStat {
-	game: number
-	Doug: number
-	Josh: number
-	Mike: number
-	Shaq: number
-}
-
-const columns: ColumnDef<GameStat>[] = [
+const columns: ColumnDef<GameData>[] = [
 	{
 		accessorKey: 'game',
 		header: ({ column }) => {
@@ -116,10 +107,12 @@ const columns: ColumnDef<GameStat>[] = [
 
 interface KillsPerGameTableProps {
 	selectedPlayer?: PlayerName
+	data?: GameData[]
 }
 
 export function KillsPerGameTable({
 	selectedPlayer = 'all',
+	data = [],
 }: KillsPerGameTableProps) {
 	const [sorting, setSorting] = React.useState<SortingState>([])
 	const [globalFilter, setGlobalFilter] = React.useState('')
@@ -135,7 +128,7 @@ export function KillsPerGameTable({
 	}, [selectedPlayer])
 
 	const table = useReactTable({
-		data: dummyData.games,
+		data,
 		columns: filteredColumns,
 		getCoreRowModel: getCoreRowModel(),
 		onSortingChange: setSorting,
@@ -149,7 +142,7 @@ export function KillsPerGameTable({
 	})
 
 	const totals = React.useMemo(() => {
-		return dummyData.games.reduce(
+		return data.reduce(
 			(acc, game) => {
 				acc.Doug += game.Doug
 				acc.Josh += game.Josh
@@ -159,7 +152,7 @@ export function KillsPerGameTable({
 			},
 			{ Doug: 0, Josh: 0, Mike: 0, Shaq: 0 },
 		)
-	}, [])
+	}, [data])
 
 	return (
 		<div className="w-full space-y-4">

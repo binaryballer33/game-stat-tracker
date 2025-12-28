@@ -11,7 +11,6 @@ import {
 	Legend,
 	LabelList,
 } from 'recharts'
-import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 import { StatsPerGameBarChartProps } from '@/types/dashboard'
 import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
@@ -22,8 +21,9 @@ type KillsBarChartProps = StatsPerGameBarChartProps & {
 export function KillsBarChart({
 	selectedPlayer = 'all',
 	cumulative = false,
+	data: providedData = [],
 }: KillsBarChartProps) {
-	const data = cumulative ? getCumulativeKills() : dummyData.games
+	const data = cumulative ? getCumulativeKills(providedData) : providedData
 	const showAll = selectedPlayer === 'all'
 
 	// Chart Title & Description
@@ -32,12 +32,12 @@ export function KillsBarChart({
 	let chartDescription = ''
 	if (cumulative) {
 		chartDescription = showAll
-			? `Cumulative Kills Per Player From ${dummyData.date}.`
-			: `Cumulative Kills For ${selectedPlayer} From ${dummyData.date}.`
+			? `Cumulative Kills Per Player.`
+			: `Cumulative Kills For ${selectedPlayer}.`
 	} else {
 		chartDescription = showAll
-			? `Kills Per Player From ${dummyData.date}.`
-			: `Kills For ${selectedPlayer} From ${dummyData.date}.`
+			? `Kills Per Player.`
+			: `Kills For ${selectedPlayer}.`
 	}
 
 	return (

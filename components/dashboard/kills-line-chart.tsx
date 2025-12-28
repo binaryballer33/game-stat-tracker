@@ -10,7 +10,6 @@ import {
 	CartesianGrid,
 	Legend,
 } from 'recharts'
-import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
 import { StatChartProps } from '@/types/dashboard'
 import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
@@ -49,8 +48,9 @@ type KillsLineChartProps = StatChartProps & {
 export function KillsLineChart({
 	selectedPlayer = 'all',
 	cumulative = false,
+	data: providedData = [],
 }: KillsLineChartProps) {
-	const data = cumulative ? getCumulativeKills() : dummyData.games
+	const data = cumulative ? getCumulativeKills(providedData) : providedData
 	const showAll = selectedPlayer === 'all'
 
 	// Chart Title & Description
@@ -59,12 +59,12 @@ export function KillsLineChart({
 	let chartDescription = ''
 	if (cumulative) {
 		chartDescription = showAll
-			? `Tracking Cumulative Kills Per Player From ${dummyData.date}.`
-			: `Tracking Cumulative Kills For ${selectedPlayer} From ${dummyData.date}.`
+			? `Tracking Cumulative Kills Per Player.`
+			: `Tracking Cumulative Kills For ${selectedPlayer}.`
 	} else {
 		chartDescription = showAll
-			? `Kills Per Player From ${dummyData.date}.`
-			: `Kills For ${selectedPlayer} From ${dummyData.date}.`
+			? `Kills Per Player.`
+			: `Kills For ${selectedPlayer}.`
 	}
 
 	// Line Configuration

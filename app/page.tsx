@@ -1,9 +1,26 @@
-import { Download, Filter } from 'lucide-react'
+'use client'
+
+import * as React from 'react'
+import { Download, CalendarIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PlayerTabContent } from '@/components/dashboard/player-tab-content'
+import { Calendar } from '@/components/ui/calendar'
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from '@/components/ui/popover'
+import { cn } from '@/lib/utils'
+import { format } from 'date-fns'
+import { getStatsForDate } from '@/lib/data-fetching/date-selector'
 
 export default function DashboardPage() {
+	const [date, setDate] = React.useState<Date | undefined>(
+		new Date(2025, 11, 27),
+	)
+	const stats = getStatsForDate(date)
+
 	return (
 		<div className="flex-1 space-y-4 p-8 pt-6 min-h-screen bg-background">
 			<div className="flex items-center justify-between space-y-2">
@@ -21,10 +38,28 @@ export default function DashboardPage() {
 					</TabsList>
 
 					<div className="flex items-center space-x-2">
-						<Button variant="outline" className="h-9">
-							<Filter className="mr-2 h-4 w-4" />
-							Filter
-						</Button>
+						<Popover>
+							<PopoverTrigger asChild>
+								<Button
+									variant="outline"
+									className={cn(
+										'h-9 w-[240px] justify-start text-left font-normal',
+										!date && 'text-muted-foreground',
+									)}
+								>
+									<CalendarIcon className="mr-2 h-4 w-4" />
+									{date ? format(date, 'PPP') : <span>Pick a date</span>}
+								</Button>
+							</PopoverTrigger>
+							<PopoverContent className="w-auto p-0" align="end">
+								<Calendar
+									mode="single"
+									selected={date}
+									onSelect={setDate}
+									initialFocus
+								/>
+							</PopoverContent>
+						</Popover>
 						<Button className="h-9 bg-primary text-primary-foreground">
 							<Download className="mr-2 h-4 w-4" />
 							Export
@@ -32,28 +67,52 @@ export default function DashboardPage() {
 					</div>
 				</div>
 
-				<PlayerTabContent value="overview" selectedPlayer="all" isOverview />
-				<PlayerTabContent
-					value="shaq"
-					selectedPlayer="Shaq"
-					playerName="Shaq"
-				/>
-				<PlayerTabContent
-					value="josh"
-					selectedPlayer="Josh"
-					playerName="Josh"
-				/>
-				<PlayerTabContent
-					value="doug"
-					selectedPlayer="Doug"
-					playerName="Doug"
-				/>
-				<PlayerTabContent
-					value="mike"
-					selectedPlayer="Mike"
-					playerName="Mike"
-				/>
-				<PlayerTabContent value="mir" selectedPlayer="Mir" playerName="Mir" />
+				{stats ? (
+					<>
+						<PlayerTabContent
+							value="overview"
+							selectedPlayer="all"
+							isOverview
+							data={stats.games}
+						/>
+						<PlayerTabContent
+							value="shaq"
+							selectedPlayer="Shaq"
+							playerName="Shaq"
+							data={stats.games}
+						/>
+						<PlayerTabContent
+							value="josh"
+							selectedPlayer="Josh"
+							playerName="Josh"
+							data={stats.games}
+						/>
+						<PlayerTabContent
+							value="doug"
+							selectedPlayer="Doug"
+							playerName="Doug"
+							data={stats.games}
+						/>
+						<PlayerTabContent
+							value="mike"
+							selectedPlayer="Mike"
+							playerName="Mike"
+							data={stats.games}
+						/>
+						<PlayerTabContent
+							value="mir"
+							selectedPlayer="Mir"
+							playerName="Mir"
+							data={stats.games}
+						/>
+					</>
+				) : (
+					<div className="flex flex-col items-center justify-center p-20 border-2 border-dashed rounded-lg">
+						<p className="text-muted-foreground">
+							No stats available for this date.
+						</p>
+					</div>
+				)}
 			</Tabs>
 		</div>
 	)

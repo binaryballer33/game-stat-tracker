@@ -1,4 +1,4 @@
-import { dummyData } from '../hard-coded-data/dec-27-2025'
+import { GameData } from '@/types/dashboard'
 
 export type CumulativeKillData = {
 	game: string
@@ -8,10 +8,10 @@ export type CumulativeKillData = {
 	Shaq: number
 }
 
-export function getCumulativeKills(): CumulativeKillData[] {
+export function getCumulativeKills(games: GameData[]): CumulativeKillData[] {
 	const cumulative = { Doug: 0, Josh: 0, Mike: 0, Shaq: 0 }
 
-	return dummyData.games.map((game) => {
+	return games.map((game) => {
 		cumulative.Doug += game.Doug
 		cumulative.Josh += game.Josh
 		cumulative.Mike += game.Mike

@@ -13,12 +13,14 @@ import { KillsLineChart } from '@/components/dashboard/kills-line-chart'
 import { KillsBarChart } from '@/components/dashboard/kills-bar-chart'
 import { KillsPerGameTable } from '@/components/dashboard/kills-per-game-table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { GameData } from '@/types/dashboard'
 
 interface PlayerTabContentProps {
 	value: string
 	selectedPlayer: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all' | 'Mir'
 	playerName?: string
 	isOverview?: boolean
+	data?: GameData[]
 }
 
 export function PlayerTabContent({
@@ -26,10 +28,11 @@ export function PlayerTabContent({
 	selectedPlayer,
 	playerName,
 	isOverview = false,
+	data = [],
 }: PlayerTabContentProps) {
 	return (
 		<TabsContent value={value} className="space-y-4">
-			<MetricsCards />
+			<MetricsCards data={data} />
 			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
 				<Card className="col-span-4 lg:col-span-7">
 					<Tabs defaultValue="bar" className="w-full">
@@ -52,12 +55,14 @@ export function PlayerTabContent({
 								<KillsBarChart
 									selectedPlayer={selectedPlayer}
 									cumulative={true}
+									data={data}
 								/>
 							</TabsContent>
 							<TabsContent value="line" className="m-0 border-none p-0">
 								<KillsLineChart
 									selectedPlayer={selectedPlayer}
 									cumulative={true}
+									data={data}
 								/>
 							</TabsContent>
 						</CardContent>
@@ -87,12 +92,14 @@ export function PlayerTabContent({
 								<KillsBarChart
 									selectedPlayer={selectedPlayer}
 									cumulative={false}
+									data={data}
 								/>
 							</TabsContent>
 							<TabsContent value="line" className="m-0 border-none p-0">
 								<KillsLineChart
 									selectedPlayer={selectedPlayer}
 									cumulative={false}
+									data={data}
 								/>
 							</TabsContent>
 						</CardContent>
@@ -106,7 +113,7 @@ export function PlayerTabContent({
 						<CardTitle>Kills Table</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<KillsPerGameTable selectedPlayer={selectedPlayer} />
+						<KillsPerGameTable selectedPlayer={selectedPlayer} data={data} />
 					</CardContent>
 				</Card>
 			</div>
