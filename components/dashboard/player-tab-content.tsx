@@ -9,12 +9,10 @@ import {
 	CardTitle,
 } from '@/components/ui/card'
 import { MetricsCards } from '@/components/dashboard/metrics-cards'
-import { SumKillsPerGameLineChart } from '@/components/dashboard/sum-kills-per-game-line-chart'
+import { KillsLineChart } from '@/components/dashboard/kills-line-chart'
+import { KillsBarChart } from '@/components/dashboard/kills-bar-chart'
 import { KillsPerGameTable } from '@/components/dashboard/kills-per-game-table'
-import { SumKillsPerGameBarChart } from '@/components/dashboard/sum-kills-per-game-bar-chart'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { KillsPerGameBarChart } from '@/components/dashboard/kills-per-game-bar-chart'
-import { KillsPerGameLineChart } from '@/components/dashboard/kills-per-game-line-chart'
 
 interface PlayerTabContentProps {
 	value: string
@@ -37,11 +35,11 @@ export function PlayerTabContent({
 					<Tabs defaultValue="bar" className="w-full">
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<div className="space-y-1">
-								<CardTitle>Combat Performance</CardTitle>
+								<CardTitle>Game Performance</CardTitle>
 								<CardDescription>
 									{isOverview
-										? 'Race To 100 Kills Across All Games.'
-										: `Detailed Combat Statistics Over Time For ${playerName}.`}
+										? 'Detailed Game-By-Game Statistics'
+										: `Statistics Over Time For ${playerName}.`}
 								</CardDescription>
 							</div>
 							<TabsList>
@@ -49,12 +47,18 @@ export function PlayerTabContent({
 								<TabsTrigger value="line">Line Chart</TabsTrigger>
 							</TabsList>
 						</CardHeader>
-						<CardContent className="pl-2">
+						<CardContent>
 							<TabsContent value="bar" className="m-0 border-none p-0">
-								<SumKillsPerGameBarChart selectedPlayer={selectedPlayer} />
+								<KillsBarChart
+									selectedPlayer={selectedPlayer}
+									cumulative={true}
+								/>
 							</TabsContent>
 							<TabsContent value="line" className="m-0 border-none p-0">
-								<SumKillsPerGameLineChart selectedPlayer={selectedPlayer} />
+								<KillsLineChart
+									selectedPlayer={selectedPlayer}
+									cumulative={true}
+								/>
 							</TabsContent>
 						</CardContent>
 					</Tabs>
@@ -68,7 +72,9 @@ export function PlayerTabContent({
 							<div className="space-y-1">
 								<CardTitle>Game Performance</CardTitle>
 								<CardDescription>
-									Detailed game-by-game statistics.
+									{isOverview
+										? 'Detailed Game-By-Game Statistics'
+										: `Statistics Over Time For ${playerName}.`}
 								</CardDescription>
 							</div>
 							<TabsList>
@@ -76,12 +82,18 @@ export function PlayerTabContent({
 								<TabsTrigger value="line">Line Chart</TabsTrigger>
 							</TabsList>
 						</CardHeader>
-						<CardContent className="pl-2">
+						<CardContent>
 							<TabsContent value="bar" className="m-0 border-none p-0">
-								<KillsPerGameBarChart selectedPlayer={selectedPlayer} />
+								<KillsBarChart
+									selectedPlayer={selectedPlayer}
+									cumulative={false}
+								/>
 							</TabsContent>
 							<TabsContent value="line" className="m-0 border-none p-0">
-								<KillsPerGameLineChart selectedPlayer={selectedPlayer} />
+								<KillsLineChart
+									selectedPlayer={selectedPlayer}
+									cumulative={false}
+								/>
 							</TabsContent>
 						</CardContent>
 					</Tabs>

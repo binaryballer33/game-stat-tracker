@@ -12,35 +12,50 @@ import {
 	LabelList,
 } from 'recharts'
 import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
+import { KillsPerGameBarChartProps } from '@/types/dashboard'
+import { getCumulativeKills } from '@/lib/data-manipulation/kill-sums-over-time'
 
-interface KillsPerGameBarChartProps {
-	selectedPlayer?: 'Doug' | 'Josh' | 'Mike' | 'Shaq' | 'all'
+interface KillsBarChartProps extends KillsPerGameBarChartProps {
+	cumulative?: boolean
 }
 
-export function KillsPerGameBarChart({
+export function KillsBarChart({
 	selectedPlayer = 'all',
-}: KillsPerGameBarChartProps) {
+	cumulative = false,
+}: KillsBarChartProps) {
+	const data = cumulative ? getCumulativeKills() : dummyData.games
 	const showAll = selectedPlayer === 'all'
+
+	// Chart Title & Description
+	const chartTitle = showAll ? 'Game Stats' : `${selectedPlayer}'s Game Stats`
+
+	let chartDescription = ''
+	if (cumulative) {
+		chartDescription = showAll
+			? `Cumulative Kills Per Player From ${dummyData.date}.`
+			: `Cumulative Kills For ${selectedPlayer} From ${dummyData.date}.`
+	} else {
+		chartDescription = showAll
+			? `Kills Per Player From ${dummyData.date}.`
+			: `Kills For ${selectedPlayer} From ${dummyData.date}.`
+	}
 
 	return (
 		<div className="w-full h-full min-h-[350px]">
 			<div className="flex items-center gap-4 mb-6">
 				<div>
 					<div className="flex items-center gap-2">
-						<h3 className="text-xl font-bold tracking-tight">Game Stats</h3>
+						<h3 className="text-xl font-bold tracking-tight">{chartTitle}</h3>
 					</div>
-					<p className="text-sm text-muted-foreground">
-						Kills Per Player From {dummyData.date}.
-					</p>
+					<p className="text-sm text-muted-foreground">{chartDescription}</p>
 				</div>
 			</div>
 
 			<ResponsiveContainer width="100%" height={350}>
 				<BarChart
-					data={dummyData.games}
-					margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+					data={data}
+					margin={{ top: 20, right: 0, left: -20, bottom: 0 }}
 				>
-					Tracking Kills Per Player From {dummyData.date}.
 					<CartesianGrid
 						strokeDasharray="3 3"
 						vertical={false}
@@ -72,6 +87,7 @@ export function KillsPerGameBarChart({
 						}}
 					/>
 					<Legend verticalAlign="top" height={36} />
+
 					{(showAll || selectedPlayer === 'Shaq') && (
 						<Bar
 							dataKey="Shaq"
@@ -82,8 +98,8 @@ export function KillsPerGameBarChart({
 							<LabelList
 								dataKey="Shaq"
 								position="top"
-								fontSize={10}
 								fill="#888888"
+								fontSize={10}
 								offset={4}
 							/>
 						</Bar>
@@ -98,8 +114,8 @@ export function KillsPerGameBarChart({
 							<LabelList
 								dataKey="Josh"
 								position="top"
-								fontSize={10}
 								fill="#888888"
+								fontSize={10}
 								offset={4}
 							/>
 						</Bar>
@@ -114,8 +130,8 @@ export function KillsPerGameBarChart({
 							<LabelList
 								dataKey="Mike"
 								position="top"
-								fontSize={10}
 								fill="#888888"
+								fontSize={10}
 								offset={4}
 							/>
 						</Bar>
@@ -130,8 +146,8 @@ export function KillsPerGameBarChart({
 							<LabelList
 								dataKey="Doug"
 								position="top"
-								fontSize={10}
 								fill="#888888"
+								fontSize={10}
 								offset={4}
 							/>
 						</Bar>
