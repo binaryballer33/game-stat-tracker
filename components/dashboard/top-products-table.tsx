@@ -1,5 +1,16 @@
 'use client'
 
+import * as React from 'react'
+import {
+	ColumnDef,
+	flexRender,
+	getCoreRowModel,
+	useReactTable,
+	getSortedRowModel,
+	SortingState,
+	getFilteredRowModel,
+	ColumnFiltersState,
+} from '@tanstack/react-table'
 import {
 	Table,
 	TableBody,
@@ -7,79 +18,202 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
+	TableFooter,
 } from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
+import { dummyData } from '@/lib/hard-coded-data/dec-27-2025'
+import { ArrowUpDown } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
-const weapons = [
+interface GameStat {
+	game: number
+	Doug: number
+	Josh: number
+	Mike: number
+	Shaq: number
+}
+
+const columns: ColumnDef<GameStat>[] = [
 	{
-		id: 'w1',
-		name: 'M4A1 Assault Rifle',
-		type: 'Assault Rifle',
-		kills: '1,245',
-		headshots: '30%',
-		accuracy: '42%',
-		damage: '450k',
-		color: 'bg-blue-500',
+		accessorKey: 'game',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					className="hover:bg-transparent p-0 font-medium"
+				>
+					Game #
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			)
+		},
+		cell: ({ row }) => (
+			<div className="font-medium">Game {row.getValue('game')}</div>
+		),
 	},
 	{
-		id: 'w2',
-		name: 'MP5 Submachine Gun',
-		type: 'SMG',
-		kills: '890',
-		headshots: '25%',
-		accuracy: '38%',
-		damage: '280k',
-		color: 'bg-gray-800',
+		accessorKey: 'Doug',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					className="hover:bg-transparent p-0 font-medium"
+				>
+					Doug
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			)
+		},
 	},
 	{
-		id: 'w3',
-		name: 'Sniper Rifle .50',
-		type: 'Sniper',
-		kills: '450',
-		headshots: '85%',
-		accuracy: '92%',
-		damage: '150k',
-		color: 'bg-orange-500',
+		accessorKey: 'Josh',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					className="hover:bg-transparent p-0 font-medium"
+				>
+					Josh
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			)
+		},
+	},
+	{
+		accessorKey: 'Mike',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					className="hover:bg-transparent p-0 font-medium"
+				>
+					Mike
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			)
+		},
+	},
+	{
+		accessorKey: 'Shaq',
+		header: ({ column }) => {
+			return (
+				<Button
+					variant="ghost"
+					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+					className="hover:bg-transparent p-0 font-medium"
+				>
+					Shaq
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			)
+		},
 	},
 ]
 
 export function TopProductsTable() {
+	const [sorting, setSorting] = React.useState<SortingState>([])
+	const [globalFilter, setGlobalFilter] = React.useState('')
+
+	const table = useReactTable({
+		data: dummyData.games,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		onSortingChange: setSorting,
+		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		state: {
+			sorting,
+			globalFilter,
+		},
+		onGlobalFilterChange: setGlobalFilter,
+	})
+
+	const totals = React.useMemo(() => {
+		return dummyData.games.reduce(
+			(acc, game) => {
+				acc.Doug += game.Doug
+				acc.Josh += game.Josh
+				acc.Mike += game.Mike
+				acc.Shaq += game.Shaq
+				return acc
+			},
+			{ Doug: 0, Josh: 0, Mike: 0, Shaq: 0 },
+		)
+	}, [])
+
 	return (
-		<div className="w-full">
-			<div className="flex items-center justify-between mb-4">
-				{/* Header is handled by parent CardHeader */}
-				<div className="text-sm font-medium text-destructive">
-					See all weapons &gt;
-				</div>
+		<div className="w-full space-y-4">
+			<div className="flex items-center justify-between">
+				<Input
+					placeholder="Filter games..."
+					value={globalFilter ?? ''}
+					onChange={(event) => setGlobalFilter(event.target.value)}
+					className="max-w-sm"
+				/>
 			</div>
-			<Table>
-				<TableHeader>
-					<TableRow>
-						<TableHead className="w-[180px]">Weapon</TableHead>
-						<TableHead>Type</TableHead>
-						<TableHead>Kills</TableHead>
-						<TableHead>Headshots</TableHead>
-						<TableHead>Accuracy</TableHead>
-						<TableHead className="text-right">Damage</TableHead>
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{weapons.map((weapon) => (
-						<TableRow key={weapon.id}>
-							<TableCell className="font-medium flex items-center gap-2">
-								<div
-									className={`w-8 h-8 rounded-md ${weapon.color} opacity-80`}
-								/>
-								{weapon.name}
-							</TableCell>
-							<TableCell>{weapon.type}</TableCell>
-							<TableCell>{weapon.kills}</TableCell>
-							<TableCell>{weapon.headshots}</TableCell>
-							<TableCell>{weapon.accuracy}</TableCell>
-							<TableCell className="text-right">{weapon.damage}</TableCell>
+			<div className="rounded-md border">
+				<Table>
+					<TableHeader>
+						{table.getHeaderGroups().map((headerGroup) => (
+							<TableRow key={headerGroup.id}>
+								{headerGroup.headers.map((header) => {
+									return (
+										<TableHead key={header.id}>
+											{header.isPlaceholder
+												? null
+												: flexRender(
+														header.column.columnDef.header,
+														header.getContext(),
+												  )}
+										</TableHead>
+									)
+								})}
+							</TableRow>
+						))}
+					</TableHeader>
+					<TableBody>
+						{table.getRowModel().rows?.length ? (
+							table.getRowModel().rows.map((row) => (
+								<TableRow
+									key={row.id}
+									data-state={row.getIsSelected() && 'selected'}
+								>
+									{row.getVisibleCells().map((cell) => (
+										<TableCell key={cell.id}>
+											{flexRender(
+												cell.column.columnDef.cell,
+												cell.getContext(),
+											)}
+										</TableCell>
+									))}
+								</TableRow>
+							))
+						) : (
+							<TableRow>
+								<TableCell
+									colSpan={columns.length}
+									className="h-24 text-center"
+								>
+									No results.
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+					<TableFooter>
+						<TableRow>
+							<TableCell className="font-bold">Grand Total</TableCell>
+							<TableCell className="font-bold">{totals.Doug}</TableCell>
+							<TableCell className="font-bold">{totals.Josh}</TableCell>
+							<TableCell className="font-bold">{totals.Mike}</TableCell>
+							<TableCell className="font-bold">{totals.Shaq}</TableCell>
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
+					</TableFooter>
+				</Table>
+			</div>
 		</div>
 	)
 }

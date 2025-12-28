@@ -76,7 +76,7 @@ export default function DashboardPage() {
 							<CardHeader>
 								<CardTitle>Revenue</CardTitle>
 								<CardDescription>
-									Overview of revenue over time for Shaq.
+									Overview Of Revenue Over Time For Shaq.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
@@ -103,7 +103,7 @@ export default function DashboardPage() {
 							<CardHeader>
 								<CardTitle>Revenue</CardTitle>
 								<CardDescription>
-									Overview of revenue over time for Josh.
+									Overview Of Revenue Over Time For Josh.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
@@ -130,7 +130,7 @@ export default function DashboardPage() {
 							<CardHeader>
 								<CardTitle>Revenue</CardTitle>
 								<CardDescription>
-									Overview of revenue over time for Randy.
+									Overview Of Revenue Over Time For Randy.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
@@ -157,7 +157,7 @@ export default function DashboardPage() {
 							<CardHeader>
 								<CardTitle>Revenue</CardTitle>
 								<CardDescription>
-									Overview of revenue over time for Mike.
+									Overview Of Revenue Over Time For Mike.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
@@ -184,7 +184,7 @@ export default function DashboardPage() {
 							<CardHeader>
 								<CardTitle>Revenue</CardTitle>
 								<CardDescription>
-									Overview of revenue over time for Mir.
+									Overview Of Revenue Over Time For Mir.
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="pl-2">
