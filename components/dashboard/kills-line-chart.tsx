@@ -101,7 +101,7 @@ export function KillsLineChart({
 					/>
 					<XAxis
 						dataKey="game"
-						stroke="#888888"
+						stroke="var(--muted-foreground)"
 						fontSize={12}
 						tickLine={false}
 						axisLine={false}
@@ -109,7 +109,7 @@ export function KillsLineChart({
 						tickFormatter={(value) => `G${value}`}
 					/>
 					<YAxis
-						stroke="#888888"
+						stroke="var(--muted-foreground)"
 						fontSize={12}
 						tickLine={false}
 						axisLine={false}

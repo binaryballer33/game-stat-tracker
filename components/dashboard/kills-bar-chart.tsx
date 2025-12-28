@@ -63,7 +63,7 @@ export function KillsBarChart({
 					/>
 					<XAxis
 						dataKey="game"
-						stroke="#888888"
+						stroke="var(--muted-foreground)"
 						fontSize={12}
 						tickLine={false}
 						axisLine={false}
@@ -71,7 +71,7 @@ export function KillsBarChart({
 						tickFormatter={(value) => `G${value}`}
 					/>
 					<YAxis
-						stroke="#888888"
+						stroke="var(--muted-foreground)"
 						fontSize={12}
 						tickLine={false}
 						axisLine={false}
@@ -98,7 +98,7 @@ export function KillsBarChart({
 							<LabelList
 								dataKey="Shaq"
 								position="top"
-								fill="#888888"
+								fill="var(--muted-foreground)"
 								fontSize={10}
 								offset={4}
 							/>
@@ -114,7 +114,7 @@ export function KillsBarChart({
 							<LabelList
 								dataKey="Josh"
 								position="top"
-								fill="#888888"
+								fill="var(--muted-foreground)"
 								fontSize={10}
 								offset={4}
 							/>
@@ -130,7 +130,7 @@ export function KillsBarChart({
 							<LabelList
 								dataKey="Mike"
 								position="top"
-								fill="#888888"
+								fill="var(--muted-foreground)"
 								fontSize={10}
 								offset={4}
 							/>
@@ -146,7 +146,7 @@ export function KillsBarChart({
 							<LabelList
 								dataKey="Doug"
 								position="top"
-								fill="#888888"
+								fill="var(--muted-foreground)"
 								fontSize={10}
 								offset={4}
 							/>

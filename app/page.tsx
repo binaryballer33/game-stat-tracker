@@ -7,6 +7,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PlayerTabContent } from '@/components/dashboard/player-tab-content'
 import { getStatsForDate } from '@/lib/data-fetching/date-selector'
 import { DatePicker } from '@/components/dashboard/date-picker'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export default function DashboardPage() {
 	const [date, setDate] = React.useState<Date | undefined>(
@@ -31,6 +32,7 @@ export default function DashboardPage() {
 					</TabsList>
 
 					<div className="flex items-center space-x-2">
+						<ModeToggle />
 						<DatePicker date={date} onSelect={setDate} />
 
 						<Button className="h-9 bg-primary text-primary-foreground">
