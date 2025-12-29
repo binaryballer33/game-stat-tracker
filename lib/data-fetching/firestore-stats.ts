@@ -18,18 +18,16 @@ export async function getStatsFromFirestore(
 	const start = startOfDay(date)
 	const end = endOfDay(date)
 
-	const statsRef = collection(db, 'stats')
+	const statsCollection = collection(db, 'stats')
 	const q = query(
-		statsRef,
+		statsCollection,
 		where('date', '>=', Timestamp.fromDate(start)),
 		where('date', '<=', Timestamp.fromDate(end)),
 	)
 
 	try {
 		const querySnapshot = await getDocs(q)
-		if (querySnapshot.empty) {
-			return null
-		}
+		if (querySnapshot.empty) return null
 
 		// Aggregate documents into games
 		// For now, assuming docs might not have a "game" index, so we group by player

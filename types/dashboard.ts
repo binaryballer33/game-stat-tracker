@@ -8,7 +8,15 @@ export interface GameData {
 	Shaq: number
 	deaths?: Record<PlayerName, number>
 	assists?: Record<PlayerName, number>
-	redeploys?: Record<PlayerName, number>
+}
+
+export interface ParsedStat {
+	game: number
+	playerName: PlayerName
+	kills: number
+	deaths: number
+	assists: number
+	redeploys: number
 }
 
 export interface StatSnapshot {
