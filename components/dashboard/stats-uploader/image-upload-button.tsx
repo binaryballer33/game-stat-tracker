@@ -1,15 +1,15 @@
 'use client'
 
 import * as React from 'react'
-import { Upload } from 'lucide-react'
+import { Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { CsvUploadDialog } from './csv-upload-dialog'
+import { StatsUploadDialog } from './stats-upload-dialog'
 
-interface CsvUploadButtonProps {
+interface ImageUploadButtonProps {
 	onSuccess?: () => void
 }
 
-export function CsvUploadButton({ onSuccess }: CsvUploadButtonProps) {
+export function ImageUploadButton({ onSuccess }: ImageUploadButtonProps) {
 	const [open, setOpen] = React.useState(false)
 
 	return (
@@ -19,10 +19,11 @@ export function CsvUploadButton({ onSuccess }: CsvUploadButtonProps) {
 				className="h-9 border-dashed border-primary/50 hover:border-primary hover:bg-primary/5 transition-all"
 				onClick={() => setOpen(true)}
 			>
-				<Upload className="mr-2 h-4 w-4" />
-				Upload Stats
+				<ImageIcon className="mr-2 h-4 w-4" />
+				Upload Image
 			</Button>
-			<CsvUploadDialog
+			<StatsUploadDialog
+				mode="image"
 				open={open}
 				onOpenChange={setOpen}
 				onSuccess={() => {

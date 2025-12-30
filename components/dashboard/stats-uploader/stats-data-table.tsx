@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { ParsedStat } from '@/types/dashboard'
+import { ParsedStat, PlayerName } from '@/types/dashboard'
 import { Input } from '@/components/ui/input'
 import {
 	Table,
@@ -13,12 +13,15 @@ import {
 	TableFooter,
 } from '@/components/ui/table'
 
-interface CsvDataTableProps {
+import { Trash2 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
+interface StatsDataTableProps {
 	data: ParsedStat[]
 	setData: (data: ParsedStat[]) => void
 }
 
-export function CsvDataTable({ data, setData }: CsvDataTableProps) {
+export function StatsDataTable({ data, setData }: StatsDataTableProps) {
 	const handleValueChange = (
 		index: number,
 		field: keyof ParsedStat,
@@ -26,10 +29,16 @@ export function CsvDataTable({ data, setData }: CsvDataTableProps) {
 	) => {
 		const newData = [...data]
 		if (field === 'playerName') {
-			newData[index].playerName = value as any
+			newData[index].playerName = value as PlayerName
 		} else {
-			newData[index][field] = parseInt(value) || 0
+			newData[index][field as keyof Omit<ParsedStat, 'playerName'>] =
+				parseInt(value) || 0
 		}
+		setData(newData)
+	}
+
+	const handleDeleteRow = (index: number) => {
+		const newData = data.filter((_, i) => i !== index)
 		setData(newData)
 	}
 
@@ -54,11 +63,12 @@ export function CsvDataTable({ data, setData }: CsvDataTableProps) {
 						<TableHead className="text-right">Deaths</TableHead>
 						<TableHead className="text-right">Assists</TableHead>
 						<TableHead className="text-right">Redeploys</TableHead>
+						<TableHead className="w-[50px]"></TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{data.map((row, index) => (
-						<TableRow key={`${row.game}-${row.playerName}`}>
+						<TableRow key={`${row.game}-${row.playerName}-${index}`}>
 							<TableCell>
 								<Input
 									type="number"
@@ -69,7 +79,15 @@ export function CsvDataTable({ data, setData }: CsvDataTableProps) {
 									className="h-8 w-16"
 								/>
 							</TableCell>
-							<TableCell className="font-medium">{row.playerName}</TableCell>
+							<TableCell className="font-medium">
+								<Input
+									value={row.playerName}
+									onChange={(e) =>
+										handleValueChange(index, 'playerName', e.target.value)
+									}
+									className="h-8 w-32"
+								/>
+							</TableCell>
 							<TableCell>
 								<Input
 									type="number"
@@ -110,6 +128,16 @@ export function CsvDataTable({ data, setData }: CsvDataTableProps) {
 									className="h-8 w-20 ml-auto text-right"
 								/>
 							</TableCell>
+							<TableCell>
+								<Button
+									variant="ghost"
+									size="icon"
+									className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+									onClick={() => handleDeleteRow(index)}
+								>
+									<Trash2 className="h-4 w-4" />
+								</Button>
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
@@ -122,6 +150,7 @@ export function CsvDataTable({ data, setData }: CsvDataTableProps) {
 						<TableCell className="text-right pr-4">
 							{totals.redeploys}
 						</TableCell>
+						<TableCell></TableCell>
 					</TableRow>
 				</TableFooter>
 			</Table>

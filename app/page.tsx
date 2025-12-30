@@ -10,7 +10,8 @@ import { DatePicker } from '@/components/dashboard/date-picker'
 import { ModeToggle } from '@/components/mode-toggle'
 import { StatSnapshot } from '@/types/dashboard'
 import { Loader2 } from 'lucide-react'
-import { CsvUploadButton } from '@/components/dashboard/csv-uploader/csv-upload-button'
+import { CsvUploadButton } from '@/components/dashboard/stats-uploader/csv-upload-button'
+import { ImageUploadButton } from '@/components/dashboard/stats-uploader/image-upload-button'
 
 export default function DashboardPage() {
 	const [date, setDate] = React.useState<Date | undefined>(
@@ -55,9 +56,13 @@ export default function DashboardPage() {
 						<DatePicker date={date} onSelect={setDate} />
 						<CsvUploadButton
 							onSuccess={() => {
-								// Simple way to refresh: toggle a dummy state or just re-fetch manually
-								// For now, let's just use the existing effect by resetting the date slightly or
-								// better, let's add a refresh trigger.
+								const current = date
+								setDate(undefined)
+								setTimeout(() => setDate(current), 10)
+							}}
+						/>
+						<ImageUploadButton
+							onSuccess={() => {
 								const current = date
 								setDate(undefined)
 								setTimeout(() => setDate(current), 10)
