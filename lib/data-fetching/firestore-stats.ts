@@ -40,7 +40,10 @@ export async function getStatsFromFirestore(
 			const data = doc.data()
 			const rawPlayerName = (data.playerName || '').toLowerCase()
 			const kills = data.kills || 0
-			const gameIndex = data.game || 1 // Default to game 1 if not specified
+			const deaths = data.deaths || 0
+			const assists = data.assists || 0
+			const redeploys = data.redeploys || 0
+			const gameIndex = data.game || 1
 
 			if (!gameMap[gameIndex]) {
 				gameMap[gameIndex] = {
@@ -49,10 +52,12 @@ export async function getStatsFromFirestore(
 					Josh: 0,
 					Mike: 0,
 					Shaq: 0,
+					deaths: {} as Record<PlayerName, number>,
+					assists: {} as Record<PlayerName, number>,
+					redeploys: {} as Record<PlayerName, number>,
 				}
 			}
 
-			// Map Firestore player names to our Type names
 			let playerName: PlayerName | null = null
 			if (rawPlayerName === 'shaq') playerName = 'Shaq'
 			if (rawPlayerName === 'josh') playerName = 'Josh'
@@ -60,8 +65,26 @@ export async function getStatsFromFirestore(
 			if (rawPlayerName === 'mike') playerName = 'Mike'
 			if (rawPlayerName === 'mir') playerName = 'Mir'
 
-			if (playerName && playerName !== 'all') {
-				gameMap[gameIndex][playerName as keyof GameData] = kills as any
+			if (playerName) {
+				// Type-safe assignment for kills
+				if (playerName in gameMap[gameIndex]) {
+					;(gameMap[gameIndex] as any)[playerName] = kills
+				}
+
+				// Initialize nested records if they don't exist
+				if (!gameMap[gameIndex].deaths)
+					gameMap[gameIndex].deaths = {} as Record<PlayerName, number>
+				if (!gameMap[gameIndex].assists)
+					gameMap[gameIndex].assists = {} as Record<PlayerName, number>
+				if (!gameMap[gameIndex].redeploys)
+					gameMap[gameIndex].redeploys = {} as Record<PlayerName, number>
+
+				if (gameMap[gameIndex].deaths)
+					gameMap[gameIndex].deaths[playerName] = deaths
+				if (gameMap[gameIndex].assists)
+					gameMap[gameIndex].assists[playerName] = assists
+				if (gameMap[gameIndex].redeploys)
+					gameMap[gameIndex].redeploys[playerName] = redeploys
 			}
 		})
 
